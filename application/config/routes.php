@@ -55,3 +55,10 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['login'] = 'auth/login';
+$route['register'] = 'auth/register';
+$route['logout'] = 'auth/logout';
+
+// Inventory Module Routes
+$route['inventory'] = 'inventory';
+
+// User Management Module Routes

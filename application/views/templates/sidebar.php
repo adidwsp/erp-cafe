@@ -15,7 +15,14 @@
                   <img src="<?= base_url('assets'); ?>/template/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                  <a href="#" class="d-block">Adi Dwi</a>
+                  <a href="#" class="flex">Adi Dwi</a>
+                  <!-- tombol logout tampak seperti icon — menggunakan form POST (aman) -->
+                  <?= form_open('auth/logout', ['id' => 'logoutForm', 'style' => 'display:inline-block;margin-left:8px;']) ?>
+                  <button type="submit" class="btn btn-sm btn-link p-0" onclick="return confirm('Logout sekarang?')"
+                      title="Logout" style="color:inherit;">
+                      <i class="fa fa-times"></i>
+                  </button>
+                  <?= form_close(); ?>
               </div>
           </div>
 
@@ -26,7 +33,7 @@
                with font-awesome or any other icon font library -->
                   <li class="nav-header">ADMIN</li>
                   <li class="nav-item has-treeview menu-open">
-                      <a href="#" class="nav-link active">
+                      <a href="#" class="nav-link">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Dashboard
@@ -35,7 +42,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="#" class="nav-link active">
+                              <a href="#" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Penjualan</p>
                               </a>
@@ -46,7 +53,7 @@
                           </li>
                       </ul>
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="users" class="nav-link <?= is_submenu_active('users') ? 'active' : '' ?>">
                           <i class="nav-icon fas fa-th"></i>
                           <p>
                               Manajemen Pengguna
@@ -63,7 +70,8 @@
                with font-awesome or any other icon font library -->
                   <li class="nav-header">HUMAN RESOURCES</li>
                   <li class="nav-item has-treeview menu-open">
-                      <a href="#" class="nav-link">
+
+                      <a href="#" class="nav-link collapsed">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Human Resources
@@ -72,7 +80,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="#" class="nav-link">
+                              <a href="#" class="nav-link <?= is_submenu_active('dashboard') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Karyawan</p>
                               </a>
@@ -162,8 +170,9 @@
                with font-awesome or any other icon font library -->
                   <li class="nav-header">INVENTORY</li>
                   <li class="nav-item has-treeview menu-open">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-tachometer-alt"></i>
+
+                      <a href="#" class="nav-link <?= is_submenu_active('inventory') ? 'active' : '' ?>">
+                          <i class=" nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Inventory
                               <i class="right fas fa-angle-left"></i>
@@ -171,7 +180,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="#" class="nav-link">
+                              <a href="inventory" class="nav-link <?= is_submenu_active('inventory') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Barang</p>
                               </a>
@@ -184,6 +193,12 @@
                   </li>
               </ul>
           </nav>
+          <div>
+              <br>
+              <br>
+              <br>
+              <br>
+          </div>
           <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->

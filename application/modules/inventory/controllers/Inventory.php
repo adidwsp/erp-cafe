@@ -2,12 +2,13 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends Admin_Controller
+class Inventory extends Admin_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
+
         $this->load->library(['form_validation', 'pagination']);
         $this->load->helper(['url', 'form', 'security']);
     }
@@ -17,10 +18,9 @@ class Dashboard extends Admin_Controller
     {
         $data['user'] = $this->session->userdata();
 
-
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
-        $this->load->view('dashboard');
+        $this->load->view('inventory', $data);
         $this->load->view('templates/footer');
     }
 }
