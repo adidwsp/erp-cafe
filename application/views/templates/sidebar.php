@@ -80,7 +80,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="#" class="nav-link <?= is_submenu_active('dashboard') ? 'active' : '' ?>">
+                              <a href="employees" class="nav-link <?= is_submenu_active('employees') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Karyawan</p>
                               </a>

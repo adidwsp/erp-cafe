@@ -62,3 +62,7 @@ $route['logout'] = 'auth/logout';
 $route['inventory'] = 'inventory';
 
 // User Management Module Routes
+$route['users'] = 'users';
+
+// Employees Module Routes
+$route['employees'] = 'employees';
