@@ -49,23 +49,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'dashboard';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
-
-
-$route['login'] = 'auth/login';
-$route['register'] = 'auth/register';
-$route['logout'] = 'auth/logout';
-
-// Inventory Module Routes
-$route['inventory'] = 'inventory';
-
-// User Management Module Routes
-$route['users'] = 'users';
-
 // Employees Module Routes
-$route['employees'] = 'employees';
-$route['attendances'] = 'attendances';
-$route['attendances/create'] = 'attendances/create';
-$route['attendances/edit'] = 'attendances/edit';
+// $route['employees/employees'] = 'employees';
+// $route['employees/attendances'] = 'attendances';
+
+
+// employees
+$route['employees'] = 'employees/employees/index';
+$route['create'] = 'employees/employees/create';
+$route['edit/(:num)'] = 'employees/employees/edit/$1';
+
+// attendances
+$route['attendances'] = 'employees/attendances/index';
+$route['attendances/create'] = 'employees/attendances/create';
+$route['attendances/edit/(:num)'] = 'employees/attendances/edit/$1';
+
+// salary
+$route['salary'] = 'employees/salary/index';
+$route['salary/generate'] = 'employees/salary/generate';
+$route['salary/slip/(:num)'] = 'employees/salary/slip/$1';

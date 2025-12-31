@@ -33,7 +33,7 @@
                             <button class="btn btn-secondary btn-sm">Cari</button>
                         </form>
                         <div>
-                            <a href="<?= site_url('employees/create') ?>" class="btn btn-success btn-sm justify-content-right">
+                            <a href="<?= site_url('employees/employees/create') ?>" class="btn btn-success btn-sm justify-content-right">
                                 <span class="icon">
                                     <i class="fas fa-plus"> </i>
                                 </span>
@@ -77,7 +77,7 @@
                                         <td><?= number_format($e->salary_base, "0", ",", ".") ?></td>
                                         <td><?= htmlspecialchars($e->status) ?></td>
                                         <td>
-                                            <a href="<?= site_url('employees/edit/' . $e->id) ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="<?= site_url('employees/employees/edit/' . $e->id) ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <?php if ($this->session->userdata('user_id') != $e->id): ?>
                                                 <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-employee<?= $e->id ?>"><i class="fas fa-trash"></i></button>
                                             <?php endif; ?>
