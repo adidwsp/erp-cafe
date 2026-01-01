@@ -80,15 +80,15 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="employees" class="nav-link <?= is_submenu_active('employees') ? 'active' : '' ?>">
+                              <a href="<?= base_url('employees/employees') ?>" class="nav-link <?= is_submenu_active('employees') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Karyawan</p>
                               </a>
-                              <a href="attendances" class="nav-link">
+                              <a href="<?= base_url('employees/attendances') ?>" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Absensi</p>
                               </a>
-                              <a href="salary" class="nav-link">
+                              <a href="<?= base_url('employees/salary') ?>" class="nav-link">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Penggajian</p>
                               </a>

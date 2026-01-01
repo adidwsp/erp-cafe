@@ -3,66 +3,52 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Attendance_model extends CI_Model
 {
+
     protected $table = 'attendances';
 
-    public function __construct()
+    public function get_all($limit = 10, $offset = 0)
     {
-        parent::__construct();
+        $this->db->select('
+        a.id,
+        a.employee_id,
+        a.date,
+        a.time_in,
+        a.time_out,
+        a.status,
+        a.location,
+        e.name AS employee_name
+    ');
+        $this->db->from('attendances a');
+        $this->db->join('employees e', 'e.id = a.employee_id', 'left');
+        $this->db->order_by('a.date', 'DESC');
+        $this->db->limit($limit, $offset);
+
+        return $this->db->get()->result();
     }
 
-    // ambil list dengan pagination & search
-    public function get_all($limit = 10, $offset = 0, $search = NULL)
+    public function count_all()
     {
-        $this->db->select('id, employee_id, date, time_in, time_out, status, location');
-        if (!empty($search)) {
-            $this->db->group_start();
-            $this->db->like('employee_id', $search);
-            $this->db->or_like('status', $search);
-            $this->db->group_end();
-        }
-        // $this->db->order_by('joined_at', 'DESC');
-        $query = $this->db->get($this->table, (int)$limit, (int)$offset);
-        return $query->result();
-    }
-
-    // hitung total untuk pagination
-    public function count_all($search = NULL)
-    {
-        if (!empty($search)) {
-            $this->db->group_start();
-            $this->db->like('employee_id', $search);
-            $this->db->or_like('status', $search);
-            $this->db->group_end();
-        }
-        return $this->db->count_all_results($this->table);
+        return $this->db->count_all($this->table);
     }
 
     public function get_by_id($id)
     {
-        return $this->db->where('id', (int)$id)->get($this->table)->row();
+        return $this->db->get_where($this->table, ['id' => $id])->row();
     }
 
-    public function get_by_email($nik)
+    public function insert($payload)
     {
-        $nik = strtolower(trim($nik));
-        return $this->db->where('nik', $nik)->get($this->table)->row();
-    }
-
-    public function insert($data)
-    {
-        // pastikan email lowercase
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table, $payload);
         return $this->db->insert_id();
     }
 
-    public function update($id, $data)
+    public function update($id, $payload)
     {
-        if (isset($data['employee_id'])) $data['employee_id'] = trim($data['employee_id']);
-        return $this->db->where('id', (int)$id)->update($this->table, $data);
+        return $this->db->where('id', $id)->update($this->table, $payload);
     }
 
     public function delete($id)
     {
-        return $this->db->where('id', (int)$id)->delete($this->table);
+        return $this->db->where('id', $id)->delete($this->table);
     }
 }

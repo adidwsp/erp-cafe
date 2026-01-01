@@ -60,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary"><?= $employee ? 'Perbarui' : 'Buat' ?></button>
-                        <a href="<?= site_url('employees/employees') ?>" class="btn btn-default">Kembali</a>
+                        <a href="<?= base_url('employees/employees') ?>" class="btn btn-default">Kembali</a>
                     </div>
                     <?= form_close() ?>
                 </div>

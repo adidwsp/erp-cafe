@@ -32,11 +32,13 @@
                         <div class="alert alert-success"><?= $this->session->flashdata('success') ?></div>
                     <?php endif; ?>
 
+                    <!-- ... bagian header tetap ... -->
+
                     <table class="table table-bordered table-hover">
                         <thead class="text-center">
                             <tr>
                                 <th>#</th>
-                                <th>Employee ID</th>
+                                <th>Karyawan</th>
                                 <th>Tanggal</th>
                                 <th>Masuk</th>
                                 <th>Keluar</th>
@@ -46,12 +48,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if ($attendances):
+                            <?php if (!empty($attendances)):
                                 $i = 1;
                                 foreach ($attendances as $a): ?>
                                     <tr>
                                         <td><?= $i++ ?></td>
-                                        <td><?= htmlspecialchars($a->employee_id) ?></td>
+                                        <td>
+                                            <?= htmlspecialchars(isset($a->employee_name) && $a->employee_name
+                                                ? $a->employee_name
+                                                : $a->employee_id) ?>
+                                        </td>
                                         <td><?= htmlspecialchars($a->date) ?></td>
                                         <td><?= htmlspecialchars($a->time_in) ?></td>
                                         <td><?= htmlspecialchars($a->time_out) ?></td>
@@ -77,6 +83,7 @@
                             <?php endif; ?>
                         </tbody>
                     </table>
+
 
                     <div class="mt-3"><?= $pagination ?></div>
                 </div>

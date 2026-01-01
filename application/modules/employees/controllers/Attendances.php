@@ -7,7 +7,11 @@ class Attendances extends Admin_Controller
     {
         parent::__construct();
         $this->load->model('employees/Attendance_model', 'attendance');
+        // load employee model untuk select employee_id di form
+        $this->load->model('employees/Employee_model', 'employee_model');
+
         $this->load->library(['form_validation', 'pagination']);
+        $this->load->helper(['url', 'form']);
     }
 
     public function index()
@@ -39,6 +43,7 @@ class Attendances extends Admin_Controller
         $this->_rules();
 
         if ($this->form_validation->run() === FALSE) {
+            // panggil _form tanpa data attendance (create mode)
             $this->_form();
             return;
         }
@@ -48,14 +53,22 @@ class Attendances extends Admin_Controller
         redirect('employees/attendances');
     }
 
-    public function edit($id)
+    public function edit($id = null)
     {
+        $id = (int) $id;
+        if ($id <= 0) {
+            show_404();
+        }
+
         $attendance = $this->attendance->get_by_id($id);
-        if (!$attendance) show_404();
+        if (!$attendance) {
+            show_404();
+        }
 
         $this->_rules();
 
         if ($this->form_validation->run() === FALSE) {
+            // kirim attendance supaya view tahu ini edit dan terisi default value
             $this->_form(['attendance' => $attendance]);
             return;
         }
@@ -67,6 +80,12 @@ class Attendances extends Admin_Controller
 
     public function delete($id)
     {
+        $id = (int) $id;
+        if ($id <= 0) {
+            $this->session->set_flashdata('error', 'ID tidak valid');
+            redirect('employees/attendances');
+        }
+
         $this->attendance->delete($id);
         $this->session->set_flashdata('success', 'Absensi dihapus');
         redirect('employees/attendances');
@@ -76,7 +95,7 @@ class Attendances extends Admin_Controller
 
     private function _rules()
     {
-        $this->form_validation->set_rules('employee_id', 'Employee ID', 'required');
+        $this->form_validation->set_rules('employee_id', 'Employee', 'required');
         $this->form_validation->set_rules('date', 'Tanggal', 'required');
         $this->form_validation->set_rules('time_in', 'Jam Masuk', 'required');
         $this->form_validation->set_rules('time_out', 'Jam Keluar', 'required');
@@ -98,6 +117,9 @@ class Attendances extends Admin_Controller
 
     private function _form($data = [])
     {
+        // WAJIB: ambil data dari tabel employees (bukan attendances)
+        $data['employees'] = $this->employee_model->get_all_for_select();
+
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('employees/attendances/form', $data);

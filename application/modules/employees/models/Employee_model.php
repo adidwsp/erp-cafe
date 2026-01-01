@@ -26,6 +26,23 @@ class Employee_model extends CI_Model
         return $query->result();
     }
 
+    public function get_all_for_select()
+    {
+        $this->db->select('id, name');
+        $this->db->from('employees');   // ⬅️ HANYA employees
+        $this->db->order_by('name', 'ASC');
+
+        $query = $this->db->get();
+
+        $result = [];
+        foreach ($query->result() as $row) {
+            $result[$row->id] = $row->name;
+        }
+
+        return $result;
+    }
+
+
     // hitung total untuk pagination
     public function count_all($search = NULL)
     {

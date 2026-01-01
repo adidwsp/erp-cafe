@@ -63,7 +63,7 @@ class Employees extends Admin_Controller
 
         $this->employee_model->insert($payload);
         $this->session->set_flashdata('success', 'Karyawan berhasil ditambahkan.');
-        redirect('employees');
+        redirect('employees/employees');
     }
 
     public function edit($id = null)
@@ -94,7 +94,7 @@ class Employees extends Admin_Controller
 
         $this->employee_model->update($id, $payload);
         $this->session->set_flashdata('success', 'Data karyawan berhasil diperbarui.');
-        redirect('employees');
+        redirect('employees/employees');
     }
 
     public function delete($id = null)
@@ -104,12 +104,12 @@ class Employees extends Admin_Controller
         $employee = $this->employee_model->get_by_id($id);
         if (!$employee) {
             $this->session->set_flashdata('error', 'Karyawan tidak ditemukan.');
-            redirect('employees');
+            redirect('employees/employees');
         }
 
         $this->employee_model->delete($id);
         $this->session->set_flashdata('success', 'Karyawan berhasil dihapus.');
-        redirect('employees');
+        redirect('employees/employees');
     }
 
     /* ===============================

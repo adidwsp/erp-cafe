@@ -1,71 +1,214 @@
-###################
-What is CodeIgniter
-###################
+===============================
+SISTEM INFORMASI ERP (ADMIN ERP)
+===============================
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Identitas Proyek
+================
+Nama Aplikasi
+  Admin ERP
 
-*******************
-Release Information
-*******************
+Jenis Aplikasi
+  Web-based Enterprise Resource Planning (ERP)
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+Framework
+  CodeIgniter 3 (Modular / HMVC)
 
-**************************
-Changelog and New Features
-**************************
+Template Antarmuka
+  AdminLTE
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+Bahasa Pemrograman
+  PHP
 
-*******************
-Server Requirements
-*******************
+Database
+  MySQL
 
-PHP version 5.6 or newer is recommended.
+Tujuan Pengembangan
+  Tugas Kuliah Program Studi Sistem Informasi
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
 
-************
-Installation
-************
+Akun Demo
+=========
+Gunakan akun berikut untuk melakukan pengujian sistem:
 
-Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
-of the CodeIgniter User Guide.
+::
 
-*******
-License
-*******
+  Email    : admin@gmail.com
+  Password : admin123
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+Catatan:
+  Akun ini disediakan khusus untuk keperluan demo dan evaluasi tugas kuliah.
 
-*********
-Resources
-*********
 
--  `User Guide <https://codeigniter.com/docs>`_
--  `Contributing Guide <https://github.com/bcit-ci/CodeIgniter/blob/develop/contributing.md>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
+Deskripsi Umum Sistem
+=====================
+Admin ERP adalah aplikasi sistem informasi terintegrasi yang dirancang untuk
+mendukung proses bisnis perusahaan, meliputi pengelolaan sumber daya manusia,
+penjualan, pembelian, dan persediaan barang.
 
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
+Sistem ini dikembangkan menggunakan arsitektur Modular HMVC sehingga setiap
+modul dapat berdiri sendiri, mudah dipelihara, dan mudah dikembangkan.
 
-***************
-Acknowledgement
-***************
 
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+Struktur Menu dan Modul
+======================
+
+1. Dashboard
+------------
+Dashboard merupakan halaman utama setelah pengguna berhasil login.
+
+Fungsi:
+- Menampilkan halaman utama sistem
+- Akses cepat ke modul utama
+- Placeholder informasi penjualan dan ringkasan sistem
+
+
+2. Manajemen Pengguna
+---------------------
+Modul ini digunakan untuk mengelola akun pengguna sistem.
+
+Fitur:
+- Menampilkan daftar pengguna
+- Menambah data pengguna
+- Mengedit data pengguna
+- Menghapus data pengguna
+- Pengelolaan role pengguna
+
+
+3. Human Resources (HR)
+----------------------
+
+3.1 Data Karyawan
+~~~~~~~~~~~~~~~~~
+Digunakan sebagai master data karyawan.
+
+Fitur:
+- Menambah data karyawan
+- Mengedit data karyawan
+- Menghapus data karyawan
+- Pencarian data karyawan
+
+Data yang dikelola:
+- NIK
+- Nama karyawan
+- Jabatan
+- Tanggal bergabung
+- Status karyawan
+- Gaji pokok
+
+
+3.2 Absensi
+~~~~~~~~~~~
+Modul absensi digunakan untuk mencatat kehadiran karyawan.
+
+Fitur:
+- Menambah data absensi
+- Mengedit data absensi
+- Menghapus data absensi
+- Relasi langsung dengan data karyawan
+- Default tanggal dan jam otomatis (waktu saat ini)
+
+
+3.3 Penggajian
+~~~~~~~~~~~~~~
+Modul ini digunakan untuk pengelolaan gaji karyawan.
+
+Fitur:
+- Pengolahan data penggajian
+- Rekap gaji karyawan
+- Integrasi data absensi
+
+Catatan:
+  Modul penggajian masih dalam tahap pengembangan.
+
+
+4. Sales
+--------
+Modul sales digunakan untuk pengelolaan penjualan perusahaan.
+
+Fitur:
+- Data penjualan
+- Data customer
+- Pengelolaan piutang
+
+Catatan:
+  Modul sales masih dalam tahap pengembangan.
+
+
+5. Purchasing
+-------------
+Modul purchasing digunakan untuk pengelolaan pembelian.
+
+Fitur:
+- Data pembelian
+- Data supplier
+- Rekap pembelian
+
+Catatan:
+  Modul purchasing masih dalam tahap pengembangan.
+
+
+6. Inventory
+------------
+Modul inventory digunakan untuk pengelolaan persediaan barang.
+
+Fitur:
+- Data barang
+- Mutasi barang
+- Monitoring stok
+
+Catatan:
+  Modul inventory masih dalam tahap pengembangan.
+
+
+Arsitektur Sistem
+=================
+Aplikasi ini menggunakan arsitektur MVC (Model-View-Controller) dengan pendekatan
+Modular HMVC, di mana:
+
+- Setiap modul memiliki controller, model, dan view masing-masing
+- Pengembangan dan pemeliharaan sistem menjadi lebih terstruktur
+- Sistem mudah dikembangkan untuk skala ERP yang lebih besar
+
+
+Manajemen Database
+==================
+Struktur database dirancang secara relasional, dengan tabel utama sebagai berikut:
+
+- employees   : Master data karyawan
+- attendances : Data transaksi absensi
+
+Relasi antar tabel menggunakan foreign key untuk menjaga integritas data.
+
+
+Keamanan Sistem
+===============
+Beberapa aspek keamanan yang diterapkan pada sistem ini antara lain:
+
+- Autentikasi login berbasis session
+- Logout menggunakan metode POST
+- Validasi input menggunakan form_validation
+- Proteksi akses halaman menggunakan Admin_Controller
+
+
+Tujuan Akademik
+===============
+Aplikasi ini dikembangkan untuk memenuhi tugas perkuliahan dengan tujuan:
+
+- Menerapkan konsep Enterprise Resource Planning (ERP)
+- Mengimplementasikan arsitektur MVC dan HMVC
+- Mengintegrasikan beberapa modul bisnis dalam satu sistem
+- Melatih analisis dan perancangan sistem informasi berbasis web
+
+
+Catatan Pengembangan
+===================
+- Sistem masih dapat dikembangkan lebih lanjut
+- Beberapa modul bersifat placeholder
+- Fitur dapat disesuaikan dengan kebutuhan akademik
+
+
+Penutup
+=======
+Dokumentasi ini disusun sebagai penjelasan sistem Admin ERP yang dikembangkan
+untuk tugas kuliah. Aplikasi ini diharapkan dapat menunjukkan pemahaman konsep
+ERP, pengembangan sistem informasi, dan penerapan teknologi web berbasis PHP.
