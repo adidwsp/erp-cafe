@@ -19,18 +19,35 @@ class Attendances extends Admin_Controller
         $per_page = 10;
         $page = (int)$this->input->get('page') ?: 1;
         $offset = ($page - 1) * $per_page;
+        $search  = $this->input->get('q', TRUE);
 
-        $data['attendances'] = $this->attendance->get_all($per_page, $offset);
-        $data['total'] = $this->attendance->count_all();
+        $data['attendances'] = $this->attendance->get_all($per_page, $offset, $search);
+        $total             = $this->attendance->count_all($search);
 
-        $config['base_url'] = site_url('employees/attendances');
-        $config['total_rows'] = $data['total'];
-        $config['per_page'] = $per_page;
-        $config['page_query_string'] = TRUE;
+        // pagination config
+        $config['base_url']            = base_url('employees/attendances') . ($search ? '?q=' . urlencode($search) : '');
+        $config['total_rows']          = $total;
+        $config['per_page']            = $per_page;
+        $config['page_query_string']   = TRUE;
         $config['query_string_segment'] = 'page';
 
         $this->pagination->initialize($config);
+
         $data['pagination'] = $this->pagination->create_links();
+        $data['search']     = $search;
+        $data['total']      = $total;
+
+        // $data['attendances'] = $this->attendance->get_all($per_page, $offset);
+        // $data['total'] = $this->attendance->count_all();
+
+        // $config['base_url'] = site_url('employees/attendances');
+        // $config['total_rows'] = $data['total'];
+        // $config['per_page'] = $per_page;
+        // $config['page_query_string'] = TRUE;
+        // $config['query_string_segment'] = 'page';
+
+        // $this->pagination->initialize($config);
+        // $data['pagination'] = $this->pagination->create_links();
 
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
@@ -78,18 +95,37 @@ class Attendances extends Admin_Controller
         redirect('employees/attendances');
     }
 
+    // public function delete($id)
+    // {
+    //     $id = (int) $id;
+    //     if ($id <= 0) {
+    //         $this->session->set_flashdata('error', 'ID tidak valid');
+    //         redirect('employees/attendances');
+    //     }
+
+    //     $this->attendance->delete($id);
+    //     $this->session->set_flashdata('success', 'Absensi dihapus');
+    //     redirect('employees/attendances');
+    // }
+
     public function delete($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
+
         if ($id <= 0) {
             $this->session->set_flashdata('error', 'ID tidak valid');
             redirect('employees/attendances');
         }
 
-        $this->attendance->delete($id);
-        $this->session->set_flashdata('success', 'Absensi dihapus');
+        if ($this->attendance->delete($id)) {
+            $this->session->set_flashdata('success', 'Data absensi berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus data');
+        }
+
         redirect('employees/attendances');
     }
+
 
     /* ===== PRIVATE ===== */
 

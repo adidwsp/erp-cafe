@@ -48,6 +48,33 @@
 <script src="<?= base_url('assets'); ?>/template/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets'); ?>/template/dist/js/demo.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        <?php if ($this->session->flashdata('success')): ?>
+            $(document).Toasts('create', {
+                class: 'bg-success',
+                title: 'Berhasil',
+                body: '<?= $this->session->flashdata('success') ?>',
+                autohide: true,
+                delay: 3000
+            });
+        <?php endif; ?>
+
+        <?php if ($this->session->flashdata('error')): ?>
+            $(document).Toasts('create', {
+                class: 'bg-danger',
+                title: 'Gagal',
+                body: '<?= $this->session->flashdata('error') ?>',
+                autohide: true,
+                delay: 3000
+            });
+        <?php endif; ?>
+
+    });
+</script>
+
 </body>
 
 </html>

@@ -6,7 +6,7 @@ class Attendance_model extends CI_Model
 
     protected $table = 'attendances';
 
-    public function get_all($limit = 10, $offset = 0)
+    public function get_all($limit = 10, $offset = 0, $search = NULL)
     {
         $this->db->select('
         a.id,
@@ -20,8 +20,22 @@ class Attendance_model extends CI_Model
     ');
         $this->db->from('attendances a');
         $this->db->join('employees e', 'e.id = a.employee_id', 'left');
+        // $this->db->order_by('a.date', 'DESC');
+        // $this->db->limit($limit, $offset);
+
+        // return $this->db->get()->result();
+
+        // 🔍 SEARCH LOGIC
+        if (!empty($search)) {
+            $this->db->group_start();
+            $this->db->like('e.name', $search);
+            $this->db->or_like('e.nik', $search);
+            $this->db->or_like('a.status', $search);
+            $this->db->group_end();
+        }
+
         $this->db->order_by('a.date', 'DESC');
-        $this->db->limit($limit, $offset);
+        $this->db->limit((int)$limit, (int)$offset);
 
         return $this->db->get()->result();
     }
@@ -49,6 +63,8 @@ class Attendance_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->where('id', $id)->delete($this->table);
+        return $this->db
+            ->where('id', (int)$id)
+            ->delete('attendances');
     }
 }

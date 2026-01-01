@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
-                        <form method="get" action="<?= site_url('employees') ?>" class="form-inline mb-3">
+                        <form method="get" action="<?php base_url('employees') ?>" class="form-inline mb-3">
                             <input type="text" name="q" value="<?= htmlspecialchars($search) ?>" class="form-control mr-2" placeholder="Cari nama/NIK/Posisi">
                             <button class="btn btn-secondary btn-sm">Cari</button>
                         </form>
@@ -107,7 +107,7 @@
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="6" class="text-center">No employees found.</td>
+                                    <td colspan="6" class="text-center">Karyawan tidak ditemukan.</td>
                                 </tr>
                             <?php endif; ?>
 

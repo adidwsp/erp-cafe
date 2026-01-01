@@ -29,7 +29,7 @@ class Employee_model extends CI_Model
     public function get_all_for_select()
     {
         $this->db->select('id, name');
-        $this->db->from('employees');   // ⬅️ HANYA employees
+        $this->db->from('employees');
         $this->db->order_by('name', 'ASC');
 
         $query = $this->db->get();

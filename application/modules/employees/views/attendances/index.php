@@ -18,21 +18,32 @@
 
     <section class="content">
         <div class="container-fluid">
-
             <div class="card">
-                <div class="card-header d-flex justify-content-between">
+                <!-- <div class="card-header d-flex justify-content-between">
                     <h3 class="card-title">Data Absensi (<?= $total ?>)</h3>
                     <a href="<?= site_url('employees/attendances/create') ?>" class="btn btn-success btn-sm">
                         <i class="fas fa-plus"></i> Tambah Absensi
                     </a>
+                </div> -->
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Data Absensi</h3>
+
                 </div>
-
                 <div class="card-body">
-                    <?php if ($this->session->flashdata('success')): ?>
-                        <div class="alert alert-success"><?= $this->session->flashdata('success') ?></div>
-                    <?php endif; ?>
-
-                    <!-- ... bagian header tetap ... -->
+                    <div class="d-flex justify-content-between mb-3">
+                        <form method="get" action="<?php base_url('employees/attendances') ?>" class="form-inline mb-3">
+                            <input type="text" name="q" value="<?= htmlspecialchars($search) ?>" class="form-control mr-2" placeholder="Cari nama/NIK">
+                            <button class="btn btn-secondary btn-sm">Cari</button>
+                        </form>
+                        <div>
+                            <a href="<?= site_url('employees/attendances/create') ?>" class="btn btn-success btn-sm justify-content-right">
+                                <span class="icon">
+                                    <i class="fas fa-plus"> </i>
+                                </span>
+                                Tambah Absensi
+                            </a>
+                        </div>
+                    </div>
 
                     <table class="table table-bordered table-hover">
                         <thead class="text-center">
@@ -49,7 +60,8 @@
                         </thead>
                         <tbody>
                             <?php if (!empty($attendances)):
-                                $i = 1;
+                                $page = (int)$this->input->get('page') ?: 1;
+                                $i = 1 + ($page - 1) * 10;
                                 foreach ($attendances as $a): ?>
                                     <tr>
                                         <td><?= $i++ ?></td>
@@ -68,12 +80,52 @@
                                                 class="btn btn-warning btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="<?= site_url('employees/attendances/delete/' . $a->id) ?>"
+                                            <!-- <a href="<?= site_url('employees/attendances/delete/' . $a->id) ?>"
                                                 onclick="return confirm('Hapus data ini?')"
                                                 class="btn btn-danger btn-sm">
                                                 <i class="fas fa-trash"></i>
-                                            </a>
+                                            </a> -->
+                                            <button
+                                                type="button"
+                                                class="btn btn-danger btn-sm"
+                                                data-toggle="modal"
+                                                data-target="#modalDelete<?= $a->id ?>">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </td>
+                                        <div class="modal fade" id="modalDelete<?= $a->id ?>" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog modal-sm" role="document">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            <span>&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            Yakin ingin menghapus absensi
+                                                            <strong><?= htmlspecialchars($a->employee_name) ?></strong>
+                                                            tanggal <strong><?= htmlspecialchars($a->date) ?></strong>?
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                            Batal
+                                                        </button>
+                                                        <a href="<?= site_url('employees/attendances/delete/' . $a->id) ?>"
+                                                            class="btn btn-danger">
+                                                            Ya, Hapus
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </tr>
                                 <?php endforeach;
                             else: ?>
@@ -86,9 +138,9 @@
 
 
                     <div class="mt-3"><?= $pagination ?></div>
+                    <!-- </div> -->
                 </div>
-            </div>
 
-        </div>
+            </div>
     </section>
 </div>

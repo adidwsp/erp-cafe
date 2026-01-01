@@ -9,22 +9,6 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-          <!-- Sidebar user panel (optional) -->
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="image">
-                  <img src="<?= base_url('assets'); ?>/template/dist/img/user/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-              </div>
-              <div class="info">
-                  <a href="<?= base_url('dashboard/profile') ?>" class="flex"><?= $this->session->userdata('name') ?></a>
-                  <!-- tombol logout tampak seperti icon — menggunakan form POST (aman) -->
-                  <?= form_open('auth/logout', ['id' => 'logoutForm', 'style' => 'display:inline-block;margin-left:8px;']) ?>
-                  <button type="submit" class="btn btn-sm btn-link p-0" onclick="return confirm('Logout sekarang?')"
-                      title="Logout" style="color:inherit;">
-                      <i class="fa fa-times"></i>
-                  </button>
-                  <?= form_close(); ?>
-              </div>
-          </div>
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
@@ -46,14 +30,14 @@
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Penjualan</p>
                               </a>
-                              <a href="<?php echo base_url('dashboard'); ?>" class="nav-link">
+                              <a href="<?php echo base_url('dashboard'); ?>" class="nav-link <?= is_submenu_active('dashboard') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Dashboard</p>
                               </a>
                           </li>
                       </ul>
                   <li class="nav-item">
-                      <a href="users" class="nav-link <?= is_submenu_active('users') ? 'active' : '' ?>">
+                      <a href="<?= base_url('users') ?>" class="nav-link <?= is_submenu_active('users') ? 'active' : '' ?>">
                           <i class="nav-icon fas fa-th"></i>
                           <p>
                               Manajemen Pengguna
@@ -80,15 +64,15 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="<?= base_url('employees/employees') ?>" class="nav-link <?= is_submenu_active('employees') ? 'active' : '' ?>">
+                              <a href="<?= base_url('employees/employees') ?>" class="nav-link <?= is_submenu_active('employees/employees') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Karyawan</p>
                               </a>
-                              <a href="<?= base_url('employees/attendances') ?>" class="nav-link">
+                              <a href="<?= base_url('employees/attendances') ?>" class="nav-link <?= is_submenu_active('employees/attendances') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Absensi</p>
                               </a>
-                              <a href="<?= base_url('employees/salary') ?>" class="nav-link">
+                              <a href="<?= base_url('employees/salary') ?>" class="nav-link <?= is_submenu_active('employees/salary') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Penggajian</p>
                               </a>
@@ -171,7 +155,7 @@
                   <li class="nav-header">INVENTORY</li>
                   <li class="nav-item has-treeview menu-open">
 
-                      <a href="#" class="nav-link <?= is_submenu_active('inventory') ? 'active' : '' ?>">
+                      <a href="#" class="nav-link">
                           <i class=" nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Inventory
