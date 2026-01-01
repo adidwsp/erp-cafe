@@ -35,6 +35,8 @@ Gunakan akun berikut untuk melakukan pengujian sistem:
   Email    : admin@gmail.com
   Password : admin123
 
+  Database : erp_cafe.sql
+
 Catatan:
   Akun ini disediakan khusus untuk keperluan demo dan evaluasi tugas kuliah.
 
