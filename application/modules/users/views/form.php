@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label>Role</label>
                         <select name="role" class="form-control">
-                            <?php $roles = ['admin', 'manager', 'customer'];
+                            <?php $roles = ['owner', 'cashier', 'admin'];
                             $sel = set_value('role', $user->role); ?>
                             <?php foreach ($roles as $r): ?>
                                 <option value="<?= $r ?>" <?= $r == $sel ? 'selected' : '' ?>><?= ucfirst($r) ?></option>

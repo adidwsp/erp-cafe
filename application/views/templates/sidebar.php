@@ -164,11 +164,15 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="inventory" class="nav-link <?= is_submenu_active('inventory') ? 'active' : '' ?>">
+                              <a href="<?php echo base_url('inventory/products'); ?>" class="nav-link <?= is_submenu_active('inventory/products') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Data Barang</p>
                               </a>
-                              <a href="<?php echo base_url('dashboard'); ?>" class="nav-link">
+                              <a href="<?php echo base_url('inventory/stocks'); ?>" class="nav-link <?= is_submenu_active('inventory/stocks') ? 'active' : '' ?>">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Data Stock</p>
+                              </a>
+                              <a href="<?php echo base_url('inventory/mutations'); ?>" class="nav-link <?= is_submenu_active('inventory/mutations') ? 'active' : '' ?>">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Mutasi Barang</p>
                               </a>
