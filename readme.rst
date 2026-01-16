@@ -32,7 +32,7 @@ Gunakan akun berikut untuk melakukan pengujian sistem:
 
 ::
 
-  Email    : admin@gmail.com
+  Email    : admin@mail.com
   Password : admin123
 
   Database : erp_cafe.sql
