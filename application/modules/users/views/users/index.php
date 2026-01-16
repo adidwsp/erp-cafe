@@ -23,42 +23,36 @@
             <!-- Simple AdminLTE table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">User Management (<?= $total ?>)</h3>
-
+                    <h3 class="card-title">Manajemen Pengguna (<?= $total ?>)</h3>
                 </div>
                 <div class="card-body">
+
                     <div class="d-flex justify-content-between mb-3">
                         <form method="get" action="<?= site_url('users') ?>" class="form-inline mb-3">
-                            <input type="text" name="q" value="<?= htmlspecialchars($search) ?>" class="form-control mr-2" placeholder="Search name/email">
-                            <button class="btn btn-secondary btn-sm">Search</button>
+                            <input type="text" name="q" value="<?= htmlspecialchars($search) ?>" class="form-control mr-2" placeholder="Cari nama/email">
+                            <button class="btn btn-secondary btn-sm">Cari</button>
                         </form>
+
+
                         <div>
                             <a href="<?= site_url('users/create') ?>" class="btn btn-success btn-sm justify-content-right">
                                 <span class="icon">
                                     <i class="fas fa-plus"> </i>
                                 </span>
-                                Add User
+                                Tambah Pengguna
                             </a>
                         </div>
                     </div>
-
-
-                    <?php if ($this->session->flashdata('success')): ?>
-                        <div class="alert alert-success"><?= $this->session->flashdata('success') ?></div>
-                    <?php endif; ?>
-                    <?php if ($this->session->flashdata('error')): ?>
-                        <div class="alert alert-danger"><?= $this->session->flashdata('error') ?></div>
-                    <?php endif; ?>
 
                     <table class="table table-bordered table-hover">
                         <thead class="text-center">
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
+                                <th>Nama</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>Dibuat</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,17 +64,49 @@
                                         <td class="text-center"><?= $i++ ?></td>
                                         <td><?= htmlspecialchars($u->name) ?></td>
                                         <td><?= htmlspecialchars($u->email) ?></td>
-                                        <td><?= htmlspecialchars($u->role) ?></td>
-                                        <td><?= htmlspecialchars($u->created_at) ?></td>
                                         <td>
-                                            <a href="<?= site_url('users/edit/' . $u->id) ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <?php if ($this->session->userdata('user_id') != $u->id): ?>
-                                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-user-<?= $u->id ?>"><i class="fas fa-trash"></i></button>
-                                            <?php endif; ?>
+                                            <span class="badge badge-info">
+                                                <?= get_user_role_name($u->role) ?>
+                                            </span>
+                                        </td>
+                                        <td><?= date('d/m/Y H:i', strtotime($u->created_at)) ?></td>
+                                        <td>
+                                            <!-- Tombol Edit hanya untuk admin/owner -->
+
+                                            <a href="<?= site_url('users/edit/' . $u->id) ?>" class="btn btn-sm btn-warning" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+
+                                            <!-- Tombol Delete hanya untuk admin/owner dan bukan diri sendiri -->
+
+                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-user-<?= $u->id ?>" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+
+                                            <!-- Tombol non-aktif/aktif hanya untuk admin/owner dan bukan diri sendiri -->
+                                            <!-- <?php //if (is_admin_or_owner() && $this->session->userdata('id') != $u->id): 
+                                                    ?> -->
+                                            <!-- <?php //if (isset($u->is_active) && $u->is_active == 1): 
+                                                    ?>
+                                                    <a href="<?= site_url('users/toggle_status/' . $u->id) ?>" class="btn btn-sm btn-secondary" title="Deactivate" onclick="return confirm('Nonaktifkan user ini?')">
+                                                        <i class="fas fa-user-times"></i>
+                                                    </a>
+                                                <?php //else: 
+                                                ?>
+                                                    <a href="<?= site_url('users/toggle_status/' . $u->id) ?>" class="btn btn-sm btn-success" title="Activate" onclick="return confirm('Aktifkan user ini?')">
+                                                        <i class="fas fa-user-check"></i>
+                                                    </a>
+                                                <?php //endif; 
+                                                ?> -->
+                                            <!-- <?php //endif; 
+                                                    ?> -->
                                         </td>
                                     </tr>
 
-                                    <!-- Modal untuk setiap user -->
+                                    <!-- Modal untuk setiap user (hanya admin/owner) -->
+
                                     <div class="modal fade" id="delete-user-<?= $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-sm">
                                             <div class="modal-content">
@@ -92,30 +118,54 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Are you sure to delete <b><?= htmlspecialchars($u->name) ?></b> ?</p>
+                                                    <p class="text-danger"><small>This action cannot be undone.</small></p>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                                     <a class="btn btn-danger" href="<?= site_url('users/delete/' . $u->id) ?>">Delete</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
                                     <td colspan="6" class="text-center">No users found.</td>
                                 </tr>
                             <?php endif; ?>
-
                         </tbody>
                     </table>
 
                     <div class="mt-3"><?= $pagination ?></div>
                 </div>
+                <div class="card-footer">
+                    <small class="text-muted">
+                        Menampilkan <?= count($users) ?> dari <?= $total ?> pengguna
+                        <?php if ($search): ?>
+                            untuk "<?= htmlspecialchars($search) ?>"
+                        <?php endif; ?>
+                    </small>
+                </div>
             </div>
-
-            <!-- /.container-fluid -->
+        </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Tambahkan ini di bagian head atau sebelum </body> -->
+<script>
+    // Auto-hide flash messages setelah 5 detik
+    setTimeout(function() {
+        $('.alert').fadeOut('slow');
+    }, 5000);
+
+    // Confirmation untuk semua tombol delete/hapus
+    $(document).on('click', '.btn-delete', function(e) {
+        if (!confirm('Are you sure you want to delete this user?')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+</script>
